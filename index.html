@@ -18,6 +18,7 @@
     --gold:#C6A24B;
     --gold-soft:#8f7639;
     --line: rgba(243,236,220,0.14);
+    --paper-rgb: 243,236,220;
     --serif: 'Fraunces', serif;
     --sans: 'Work Sans', sans-serif;
   }
@@ -29,7 +30,26 @@
     font-family:var(--sans);
     overflow-x:hidden;
     -webkit-font-smoothing:antialiased;
+    transition:background .5s ease, color .5s ease;
+    cursor:none;
   }
+  @media (hover:none){ body{cursor:auto;} }
+
+  /* ---------- PAPER MODE ---------- */
+  body.paper-mode{
+    --ink:#F3ECDC;
+    --ink-2:#E7DCC4;
+    --paper:#1C1710;
+    --paper-dim:#2A2318;
+    --line: rgba(28,23,16,0.14);
+    --paper-rgb: 28,23,16;
+  }
+  body.paper-mode .gallery-band{ --ink:#16130E; --paper:#F3ECDC; background:var(--ink-2); color:var(--paper); }
+  body.paper-mode .gallery-band .eyebrow{ color:var(--gold); }
+  body.paper-mode .gallery-band .eyebrow::before{ background:var(--gold); }
+  body.paper-mode .gallery-band .section-head p{ color:rgba(var(--paper-rgb),.65); }
+  body.paper-mode .gift-card h4, body.paper-mode .gift-card .tag{ color:#F3ECDC; }
+  body.paper-mode .hero::after{ opacity:.4; }
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
   }
@@ -117,7 +137,7 @@
   }
   .hero h1 em{font-style:italic; color:var(--wax-bright); font-weight:450;}
   .hero p{
-    max-width:520px; font-size:16.5px; line-height:1.7; color:rgba(243,236,220,.72);
+    max-width:520px; font-size:16.5px; line-height:1.7; color:rgba(var(--paper-rgb),.72);
     opacity:0; animation:fadeUp .9s ease 1.2s forwards;
   }
   .hero-ctas{
@@ -143,7 +163,7 @@
   }
   .scroll-cue .line{width:1px; height:34px; background:linear-gradient(var(--gold), transparent); animation:pulseLine 2s ease-in-out infinite;}
   @keyframes pulseLine{0%,100%{opacity:.3;} 50%{opacity:1;}}
-  .scroll-cue span{font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(243,236,220,.5);}
+  .scroll-cue span{font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(var(--paper-rgb),.5);}
 
   /* ---------- MARQUEE ---------- */
   .marquee-strip{
@@ -153,7 +173,7 @@
   .marquee-track{display:inline-block; animation:marquee 34s linear infinite;}
   .marquee-track span{
     font-family:var(--serif); font-style:italic; font-size:17px;
-    color:rgba(243,236,220,.55); margin:0 28px;
+    color:rgba(var(--paper-rgb),.55); margin:0 28px;
   }
   .marquee-track span.dot{color:var(--gold); font-style:normal; font-family:var(--sans);}
   @keyframes marquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
@@ -166,7 +186,7 @@
   section{padding:130px 0; position:relative;}
   .section-head{max-width:640px; margin-bottom:64px;}
   .section-head h2{font-size:clamp(28px,4vw,44px); margin-top:16px;}
-  .section-head p{margin-top:18px; color:rgba(243,236,220,.65); font-size:15.5px; line-height:1.75; max-width:52ch;}
+  .section-head p{margin-top:18px; color:rgba(var(--paper-rgb),.65); font-size:15.5px; line-height:1.75; max-width:52ch;}
 
   /* ---------- SERVICES ---------- */
   .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
@@ -177,7 +197,7 @@
   .service-card:hover{background:var(--ink-2);}
   .service-card .num{font-family:var(--serif); font-style:italic; color:var(--gold-soft); font-size:13px;}
   .service-card h3{font-size:23px; margin:22px 0 14px; font-weight:600;}
-  .service-card p{color:rgba(243,236,220,.62); font-size:14.5px; line-height:1.75;}
+  .service-card p{color:rgba(var(--paper-rgb),.62); font-size:14.5px; line-height:1.75;}
   .service-card .glyph{
     position:absolute; right:-10px; bottom:-18px; width:120px; height:120px;
     opacity:.06; transform:rotate(-8deg); transition:opacity .4s, transform .5s;
@@ -198,7 +218,7 @@
   .process-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:28px; padding-top:50px;}
   .process-step .mark{width:30px; height:30px; border-radius:50%; border:1px solid var(--gold-soft); display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-style:italic; font-size:13px; color:var(--gold); background:var(--ink); margin-bottom:22px;}
   .process-step h3{font-size:19px; margin-bottom:10px;}
-  .process-step p{font-size:14px; color:rgba(243,236,220,.6); line-height:1.7;}
+  .process-step p{font-size:14px; color:rgba(var(--paper-rgb),.6); line-height:1.7;}
   @media (max-width:900px){ .process-grid{grid-template-columns:1fr; gap:44px;} .process-line{display:none;} }
 
   /* ---------- GALLERY ---------- */
@@ -235,7 +255,7 @@
   }
   .story-visual svg{width:56%; opacity:.9;}
   .story h2{font-size:clamp(26px,3.6vw,38px); margin-bottom:22px;}
-  .story p{color:rgba(243,236,220,.68); font-size:15.5px; line-height:1.8; margin-bottom:16px;}
+  .story p{color:rgba(var(--paper-rgb),.68); font-size:15.5px; line-height:1.8; margin-bottom:16px;}
   .story .loc{margin-top:26px; display:flex; align-items:center; gap:10px; font-size:13px; letter-spacing:.05em; color:var(--gold);}
   @media (max-width:900px){ .story{grid-template-columns:1fr;} }
 
@@ -243,12 +263,74 @@
   .cta-section{text-align:center; padding:150px 0;}
   .cta-seal{width:74px; height:74px; margin:0 auto 30px;}
   .cta-section h2{font-size:clamp(30px,5vw,54px); max-width:16ch; margin:0 auto 20px;}
-  .cta-section p{max-width:460px; margin:0 auto 38px; color:rgba(243,236,220,.65); font-size:15.5px; line-height:1.7;}
+  .cta-section p{max-width:460px; margin:0 auto 38px; color:rgba(var(--paper-rgb),.65); font-size:15.5px; line-height:1.7;}
 
-  footer{border-top:1px solid var(--line); padding:44px 0; font-size:13px; color:rgba(243,236,220,.5);}
+  footer{border-top:1px solid var(--line); padding:44px 0; font-size:13px; color:rgba(var(--paper-rgb),.5);}
   .foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
-  .foot-row a{color:rgba(243,236,220,.5); transition:color .25s;}
+  .foot-row a{color:rgba(var(--paper-rgb),.5); transition:color .25s;}
   .foot-row a:hover{color:var(--gold);}
+
+  /* ---------- MODE TOGGLE ---------- */
+  .mode-toggle{
+    width:34px; height:34px; border-radius:50%; border:1px solid var(--gold-soft);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    background:transparent; transition:background .3s, transform .3s; margin-left:22px; flex:0 0 auto;
+  }
+  .mode-toggle:hover{background:var(--gold); transform:rotate(20deg);}
+  .mode-toggle svg{width:16px; height:16px; stroke:var(--gold); transition:stroke .3s;}
+  .mode-toggle:hover svg{stroke:var(--ink);}
+  body.paper-mode .mode-toggle .icon-moon{display:none;}
+  .mode-toggle .icon-sun{display:none;}
+  body.paper-mode .mode-toggle .icon-sun{display:block;}
+
+  /* ---------- CURSOR WAX TRAIL ---------- */
+  .wax-cursor{
+    position:fixed; top:0; left:0; width:22px; height:22px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--wax-bright), var(--wax) 70%);
+    pointer-events:none; z-index:9999; opacity:0; transform:translate(-50%,-50%) scale(1);
+    box-shadow:0 0 14px -2px rgba(124,34,49,.7);
+    transition:opacity .3s, width .25s, height .25s;
+    mix-blend-mode:normal;
+  }
+  .wax-drop{
+    position:fixed; top:0; left:0; border-radius:50%;
+    background:var(--wax); pointer-events:none; z-index:9998; opacity:0;
+    transform:translate(-50%,-50%);
+  }
+  @media (hover:none){ .wax-cursor,.wax-drop{display:none;} }
+  .link-hoverable:hover ~ .wax-cursor, .wax-cursor.grow{ width:38px; height:38px; }
+
+  /* ---------- LIGHTBOX ---------- */
+  .gift-card{cursor:none;}
+  .lightbox-overlay{
+    position:fixed; inset:0; z-index:500; background:rgba(10,8,5,.86);
+    backdrop-filter:blur(6px);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity .4s ease;
+    padding:24px;
+  }
+  .lightbox-overlay.open{opacity:1; pointer-events:auto;}
+  .lightbox-card{
+    width:min(760px, 100%); background:var(--ink); border:1px solid var(--line);
+    border-radius:4px; display:grid; grid-template-columns:1fr 1fr; overflow:hidden;
+    transform:translateY(24px) scale(.97); transition:transform .45s cubic-bezier(.2,.8,.2,1);
+    color:var(--paper);
+  }
+  .lightbox-overlay.open .lightbox-card{transform:translateY(0) scale(1);}
+  .lightbox-visual{aspect-ratio:1/1; position:relative;}
+  .lightbox-visual .pattern{position:absolute; inset:0;}
+  .lightbox-info{padding:44px 38px; display:flex; flex-direction:column; justify-content:center;}
+  .lightbox-info .eyebrow{margin-bottom:16px;}
+  .lightbox-info h3{font-size:28px; margin-bottom:14px;}
+  .lightbox-info p{font-size:14.5px; line-height:1.75; color:rgba(var(--paper-rgb),.65); margin-bottom:26px;}
+  .lightbox-close{
+    position:absolute; top:20px; right:20px; width:36px; height:36px; border-radius:50%;
+    border:1px solid var(--line); background:rgba(0,0,0,.2); color:var(--paper);
+    display:flex; align-items:center; justify-content:center; font-size:16px;
+    transition:background .25s, border-color .25s; z-index:5;
+  }
+  .lightbox-close:hover{background:var(--wax); border-color:var(--wax);}
+  @media (max-width:640px){ .lightbox-card{grid-template-columns:1fr;} .lightbox-visual{aspect-ratio:16/9;} }
 </style>
 </head>
 <body>
@@ -267,8 +349,14 @@
     <a href="#work">Gifting</a>
     <a href="#story">Studio</a>
     <a href="#contact" class="navcta">Get a Quote</a>
+    <button class="mode-toggle" id="modeToggle" aria-label="Toggle paper mode" type="button">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+    </button>
   </div>
 </nav>
+
+<div class="wax-cursor" id="waxCursor"></div>
 
 <header class="hero">
   <svg class="seal-stamp" viewBox="0 0 120 120" fill="none">
@@ -361,10 +449,10 @@
       <p>A running range of pieces we shape, print, and engrave for individuals, couples, and companies across Abuja.</p>
     </div>
     <div class="gallery-grid reveal-stagger reveal">
-      <div class="gift-card" style="--i:0"><div class="pattern c1"></div><h4>Drinkware</h4><span class="tag">Mugs · Bottles · Tumblers</span></div>
-      <div class="gift-card" style="--i:1"><div class="pattern c2"></div><h4>Hampers</h4><span class="tag">Corporate · Celebration</span></div>
-      <div class="gift-card" style="--i:2"><div class="pattern c3"></div><h4>Apparel</h4><span class="tag">Caps · Tees · Aprons</span></div>
-      <div class="gift-card" style="--i:3"><div class="pattern c4"></div><h4>Stationery</h4><span class="tag">Cards · Invites · Notebooks</span></div>
+      <div class="gift-card" style="--i:0" data-lightbox data-class="c1" data-title="Drinkware" data-tag="Mugs · Bottles · Tumblers" data-desc="Ceramic mugs, steel bottles, and tumblers engraved or printed with names, dates, or a brand mark — a steady favourite for corporate gifting and personal keepsakes alike."><div class="pattern c1"></div><h4>Drinkware</h4><span class="tag">Mugs · Bottles · Tumblers</span></div>
+      <div class="gift-card" style="--i:1" data-lightbox data-class="c2" data-title="Hampers" data-tag="Corporate · Celebration" data-desc="Curated gift hampers built around an occasion or a brand — assembled and packaged in-studio, sized for individual clients or bulk corporate orders."><div class="pattern c2"></div><h4>Hampers</h4><span class="tag">Corporate · Celebration</span></div>
+      <div class="gift-card" style="--i:2" data-lightbox data-class="c3" data-title="Apparel" data-tag="Caps · Tees · Aprons" data-desc="Custom-printed and embroidered apparel — caps, t-shirts, and aprons — for teams, events, and personal orders that need a name or logo done properly."><div class="pattern c3"></div><h4>Apparel</h4><span class="tag">Caps · Tees · Aprons</span></div>
+      <div class="gift-card" style="--i:3" data-lightbox data-class="c4" data-title="Stationery" data-tag="Cards · Invites · Notebooks" data-desc="Invitations, greeting cards, and notebooks designed and printed to match an event or a brand — from a single wedding suite to a full stationery line."><div class="pattern c4"></div><h4>Stationery</h4><span class="tag">Cards · Invites · Notebooks</span></div>
     </div>
   </div>
 </section>
@@ -376,7 +464,7 @@
         <svg viewBox="0 0 120 120" fill="none">
           <circle cx="60" cy="60" r="54" stroke="#C6A24B" stroke-width="1"/>
           <circle cx="60" cy="60" r="40" stroke="#7C2231" stroke-width="1.4"/>
-          <text x="60" y="70" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="30" fill="#F3ECDC">AC</text>
+          <text x="60" y="70" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="30" fill="var(--paper)">AC</text>
         </svg>
       </div>
       <div class="reveal">
@@ -417,6 +505,19 @@
   </div>
 </footer>
 
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <div class="lightbox-card">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close" type="button">✕</button>
+    <div class="lightbox-visual"><div class="pattern" id="lightboxPattern"></div></div>
+    <div class="lightbox-info">
+      <span class="eyebrow" id="lightboxTag">Tag</span>
+      <h3 id="lightboxTitle">Title</h3>
+      <p id="lightboxDesc">Description</p>
+      <a href="#contact" class="btn btn-primary" id="lightboxCta" style="align-self:flex-start;">Enquire About This →</a>
+    </div>
+  </div>
+</div>
+
 <script>
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
@@ -427,6 +528,77 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold: 0.4 });
   document.querySelectorAll('.process-line-fill').forEach(el => lineIo.observe(el));
+
+  /* ---- Paper mode toggle ---- */
+  const modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('paper-mode');
+  });
+
+  /* ---- Cursor wax-drip trail ---- */
+  const isTouch = window.matchMedia('(hover: none)').matches;
+  if (!isTouch) {
+    const cursor = document.getElementById('waxCursor');
+    let mx = window.innerWidth/2, my = window.innerHeight/2, cx = mx, cy = my;
+    let shown = false;
+    window.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      if (!shown) { cursor.style.opacity = '1'; shown = true; }
+      const target = e.target.closest('a, button, .gift-card, .service-card');
+      cursor.classList.toggle('grow', !!target);
+    });
+    window.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+
+    let lastDrop = 0;
+    function tick(t){
+      cx += (mx - cx) * 0.18;
+      cy += (my - cy) * 0.18;
+      cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
+
+      // occasionally leave a tiny wax drop behind on faster movement
+      const dist = Math.hypot(mx - cx, my - cy);
+      if (dist > 14 && t - lastDrop > 90) {
+        lastDrop = t;
+        const drop = document.createElement('div');
+        drop.className = 'wax-drop';
+        const size = 5 + Math.random()*4;
+        drop.style.width = size + 'px';
+        drop.style.height = size + 'px';
+        drop.style.left = cx + 'px';
+        drop.style.top = cy + 'px';
+        drop.style.opacity = '0.55';
+        document.body.appendChild(drop);
+        drop.animate(
+          [{ opacity:0.55, transform:'translate(-50%,-50%) scale(1)' },
+           { opacity:0, transform:'translate(-50%,-50%) scale(0.3)' }],
+          { duration: 650, easing:'ease-out' }
+        ).onfinish = () => drop.remove();
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* ---- Gift card lightbox ---- */
+  const overlay = document.getElementById('lightboxOverlay');
+  const lbPattern = document.getElementById('lightboxPattern');
+  const lbTitle = document.getElementById('lightboxTitle');
+  const lbTag = document.getElementById('lightboxTag');
+  const lbDesc = document.getElementById('lightboxDesc');
+
+  document.querySelectorAll('[data-lightbox]').forEach(card => {
+    card.addEventListener('click', () => {
+      lbPattern.className = 'pattern ' + card.dataset.class;
+      lbTitle.textContent = card.dataset.title;
+      lbTag.textContent = card.dataset.tag;
+      lbDesc.textContent = card.dataset.desc;
+      overlay.classList.add('open');
+    });
+  });
+  function closeLightbox(){ overlay.classList.remove('open'); }
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
 </script>
 
 </body>
