@@ -19,6 +19,7 @@
     --gold-soft:#B4903A;
     --line: rgba(250,246,237,0.14);
     --paper-rgb: 250,246,237;
+    --veil-rgb: 17,24,39;
     --serif: 'Fraunces', serif;
     --sans: 'Work Sans', sans-serif;
   }
@@ -43,6 +44,7 @@
     --paper-dim:#1F3A5F;
     --line: rgba(17,24,39,0.12);
     --paper-rgb: 17,24,39;
+    --veil-rgb: 250,246,237;
   }
   body.paper-mode .gallery-band{ --ink:#111827; --paper:#FAF6ED; background:var(--ink-2); color:var(--paper); }
   body.paper-mode .gallery-band .eyebrow{ color:var(--navy-mid); }
@@ -102,13 +104,16 @@
   /* ---------- HERO ---------- */
   .hero{
     min-height:100svh;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    display:flex; align-items:center; justify-content:center;
     text-align:center; position:relative;
     padding:140px 24px 80px;
     background:
       radial-gradient(ellipse at 50% -10%, rgba(31,58,95,.55), transparent 55%),
       radial-gradient(ellipse at 50% 110%, rgba(226,184,74,.10), transparent 60%),
       var(--ink);
+    /* 3D carousel support */
+    perspective: 1200px;
+    overflow: hidden;
   }
   .hero::after{
     content:'';
@@ -117,6 +122,71 @@
       repeating-linear-gradient(0deg, rgba(255,255,255,.015) 0px, rgba(255,255,255,.015) 1px, transparent 1px, transparent 3px);
     pointer-events:none;
   }
+
+  /* ---- HERO CONTENT (sits above the carousel) ---- */
+  .hero-content{
+    position:relative;
+    z-index:10;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    max-width:840px;
+    padding:40px;
+    border-radius:20px;
+    background: radial-gradient(circle at 50% 50%,
+                  rgba(var(--veil-rgb),0.72) 0%,
+                  rgba(var(--veil-rgb),0.35) 45%,
+                  rgba(var(--veil-rgb),0) 72%);
+  }
+
+  /* ---------- 3D CAROUSEL ---------- */
+  .hero-carousel{
+    position:absolute;
+    top:50%; left:50%;
+    width:100%; height:100%;
+    transform: translate(-50%, -50%);
+    display:flex; align-items:center; justify-content:center;
+    z-index:1;
+    transform-style:preserve-3d;
+    pointer-events:none;
+    opacity:0.6;
+  }
+  .carousel-item{
+    position:absolute;
+    width:min(260px, 60vw);
+    height:min(400px, 70vh);
+    background-color:var(--ink-2);
+    border-radius:6px;
+    box-shadow:0 15px 50px rgba(0,0,0,0.8);
+    transition: transform .8s cubic-bezier(0.2,0.8,0.2,1), opacity .8s;
+    background-size:cover;
+    background-position:center;
+    will-change:transform;
+    overflow:hidden;
+  }
+  /* subtle texture + gold glow on each card */
+  .carousel-item::before{
+    content:'';
+    position:absolute; inset:0;
+    border-radius:6px;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 2px, transparent 2px 12px),
+      radial-gradient(circle at 30% 22%, rgba(226,184,74,.28), transparent 62%);
+    pointer-events:none;
+  }
+  /* Dark overlay for cards pushed to the back */
+  .carousel-item::after{
+    content:'';
+    position:absolute; inset:0;
+    background: var(--ink);
+    opacity:.5;
+    transition: opacity .8s;
+    border-radius:6px;
+  }
+  .carousel-item.active::after{ opacity:0; }
+
+  .c5{background:linear-gradient(160deg,#1F3A5F,#B4903A);}
+
   .peak-mark{
     width:104px; height:104px; margin-bottom:30px;
     opacity:0; transform:translateY(-140px) scale(1.5) rotate(-14deg);
@@ -160,15 +230,22 @@
     position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
     display:flex; flex-direction:column; align-items:center; gap:8px;
     opacity:0; animation:fadeUp 1s ease 1.7s forwards;
+    z-index:10;
   }
   .scroll-cue .line{width:1px; height:34px; background:linear-gradient(var(--gold), transparent); animation:pulseLine 2s ease-in-out infinite;}
   @keyframes pulseLine{0%,100%{opacity:.3;} 50%{opacity:1;}}
   .scroll-cue span{font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(var(--paper-rgb),.5);}
 
+  @media (max-width:700px){
+    .hero-content{padding:24px 12px;}
+    .hero-carousel{opacity:.42;}
+  }
+
   /* ---------- MARQUEE ---------- */
   .marquee-strip{
     border-top:1px solid var(--line); border-bottom:1px solid var(--line);
     overflow:hidden; white-space:nowrap; padding:16px 0; background:var(--ink-2);
+    position:relative; z-index:2;
   }
   .marquee-track{display:inline-block; animation:marquee 34s linear infinite;}
   .marquee-track span{
@@ -358,18 +435,32 @@
 <div class="gold-cursor" id="goldCursor"></div>
 
 <header class="hero">
-  <svg class="peak-mark" viewBox="0 0 120 120" fill="none">
-    <path d="M60 12 L100 104 L76 104 L60 55 L44 104 L20 104 Z" fill="var(--gold)"/>
-    <path d="M60 12 L100 104 L76 104 L60 55 L44 104 L20 104 Z" stroke="var(--gold-bright)" stroke-width="1" opacity="0.5"/>
-    <rect x="54" y="52" width="12" height="12" transform="rotate(45 60 58)" fill="var(--ink)"/>
-  </svg>
-  <span class="eyebrow">Branding &amp; Personalised Gifts</span>
-  <h1>"Your story, beautifully made."</h1>
-  <p>AIMANI Creative is a branding and personalised gifting studio based in Gwagwalada, Abuja — where identities are designed, and gifts are made to be kept, not just given.</p>
-  <div class="hero-ctas">
-    <a href="#contact" class="btn btn-primary">Start a Project →</a>
-    <a href="#work" class="btn btn-ghost">See the Gifting Range</a>
+
+  <!-- 3D CAROUSEL (behind the text) -->
+  <div class="hero-carousel" id="heroCarousel" aria-hidden="true">
+    <div class="carousel-item c1"></div>
+    <div class="carousel-item c2"></div>
+    <div class="carousel-item c3"></div>
+    <div class="carousel-item c4"></div>
+    <div class="carousel-item c5"></div>
   </div>
+
+  <!-- HERO CONTENT -->
+  <div class="hero-content">
+    <svg class="peak-mark" viewBox="0 0 120 120" fill="none">
+      <path d="M60 12 L100 104 L76 104 L60 55 L44 104 L20 104 Z" fill="var(--gold)"/>
+      <path d="M60 12 L100 104 L76 104 L60 55 L44 104 L20 104 Z" stroke="var(--gold-bright)" stroke-width="1" opacity="0.5"/>
+      <rect x="54" y="52" width="12" height="12" transform="rotate(45 60 58)" fill="var(--ink)"/>
+    </svg>
+    <span class="eyebrow">Branding &amp; Personalised Gifts</span>
+    <h1>"Your story, beautifully made."</h1>
+    <p>AIMANI Creative is a branding and personalised gifting studio based in Gwagwalada, Abuja — where identities are designed, and gifts are made to be kept, not just given.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn btn-primary">Start a Project →</a>
+      <a href="#work" class="btn btn-ghost">See the Gifting Range</a>
+    </div>
+  </div>
+
   <div class="scroll-cue"><div class="line"></div><span>Scroll</span></div>
 </header>
 
@@ -594,6 +685,56 @@
   document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
   overlay.addEventListener('click', (e) => { if (e.target === overlay) closeLightbox(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+  /* ---- Hero 3D Carousel Animation ---- */
+  const carouselItems = document.querySelectorAll('.carousel-item');
+  let activeIndex = Math.floor(carouselItems.length / 2);
+
+  function updateCarousel() {
+    // Responsive spacing so the arc never overflows on small screens
+    const spacing = window.innerWidth < 700 ? 72 : (window.innerWidth < 1024 ? 110 : 140);
+
+    carouselItems.forEach((item, index) => {
+      const offset = index - activeIndex;
+      const absOffset = Math.abs(offset);
+      const sign = Math.sign(offset);
+
+      // Math to create the 3D curve
+      const translateX = offset * spacing;      // Horizontal spacing
+      const translateZ = absOffset * -150;      // Push inactive items back
+      const rotateY = sign * -45;               // Turn items inward toward the center
+      const zIndex = carouselItems.length - absOffset;
+
+      // Fade out items that are too far away
+      const opacity = absOffset > 3 ? 0 : 1;
+
+      item.style.transform = `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg)`;
+      item.style.zIndex = zIndex;
+      item.style.opacity = opacity;
+
+      if (offset === 0) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }
+
+  // Auto-play functionality
+  const carouselTimer = setInterval(() => {
+    activeIndex = (activeIndex + 1) % carouselItems.length;
+    updateCarousel();
+  }, 3000); // Cycles every 3 seconds
+
+  // Keep the arc correct on resize / orientation change
+  let resizeRaf;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(resizeRaf);
+    resizeRaf = requestAnimationFrame(updateCarousel);
+  });
+
+  // Initial call
+  updateCarousel();
 </script>
 
 </body>
